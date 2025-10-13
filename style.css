@@ -252,9 +252,26 @@ footer {
 @media (max-width: 600px) {
     
     header {
-        padding-top: 50px; /* Espaço para o botão de modo */
+        padding-top: 50px;
     }
 
+    /* Menu de Navegação - De linha para coluna (CORRIGIDO) */
+    nav {
+        flex-direction: column; /* Força os links a ficarem um abaixo do outro */
+        gap: 5px;
+        padding: 0 10px;
+        align-items: stretch; /* Garante que os links ocupem a largura total */
+    }
+    nav a {
+        display: block;
+        margin: 2px 0; /* Espaçamento menor entre os links */
+        padding: 8px;
+        font-size: 1em;
+        text-align: center; /* Centraliza o texto dentro do link */
+    }
+    
+    /* ... O restante do seu CSS para celular ... */
+}
     /* Menu de Navegação - De linha para coluna */
     nav {
         display: flex;
@@ -329,4 +346,5 @@ footer {
         flex: 2; /* Ocupa 2/3 do espaço */
     }
 }
+
 
