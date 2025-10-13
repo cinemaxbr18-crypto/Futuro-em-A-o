@@ -4,7 +4,7 @@
 
 :root {
     /* MODO CLARO PADRÃO */
-    --cor-principal: #02457A; /* Azul Escuro do Grêmio */
+    --cor-principal: #02457A; /* Azul Escuro */
     --cor-secundaria: #006cc4; /* Azul de Destaque */
     --cor-fundo: #f4f4f9;
     --cor-texto: #333;
@@ -13,7 +13,7 @@
     --cor-card-fundo: white;
 }
 
-/* MODO ESCURO (Aplicação via JavaScript na classe .dark-mode na tag body) */
+/* MODO ESCURO */
 body.dark-mode {
     --cor-principal: #004f8f;
     --cor-secundaria: #006cc4;
@@ -24,7 +24,7 @@ body.dark-mode {
     --cor-card-fundo: #1e1e1e;
 }
 
-/* Reset básico e transições suaves para o modo escuro */
+/* Reset Universal e Transições */
 * {
     box-sizing: border-box;
     transition: background-color 0.5s, color 0.5s, border-color 0.5s;
@@ -38,18 +38,18 @@ body {
     color: var(--cor-texto);
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Garante que o rodapé fique no fim da página */
+    min-height: 100vh;
 }
 
-/* Imagens e vídeos nunca estouram o container */
+/* Imagens responsivas */
 img, video {
   max-width: 100%;
   height: auto;
-  margin-top: 10px;
+  display: block;
 }
 
 /* ======================================= */
-/* --- 2. LAYOUT GERAL (HEADER, MAIN, FOOTER) --- */
+/* --- 2. LAYOUT GERAL --- */
 /* ======================================= */
 
 header {
@@ -59,15 +59,8 @@ header {
     text-align: center;
     box-shadow: 0 4px 6px var(--cor-shadow);
 }
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-header h3 {
-    margin: 5px 0 15px;
-    font-size: 1.2em;
-    font-weight: 300;
-}
+header h1 { margin: 0; font-size: 2.5em; }
+header h3 { margin: 5px 0 15px; font-size: 1.2em; font-weight: 300; }
 
 main {
     flex-grow: 1;
@@ -89,7 +82,6 @@ h2 {
     padding-bottom: 5px;
     margin-bottom: 20px;
 }
-
 footer {
     background: var(--cor-principal);
     color: white;
@@ -99,25 +91,26 @@ footer {
 }
 
 /* ======================================= */
-/* --- 3. NAVEGAÇÃO (RESOLVE O PROBLEMA DO MENU) --- */
+/* --- 3. NAVEGAÇÃO E MENU (O principal problema) --- */
 /* ======================================= */
 
 nav {
-    /* Padrão para Desktop e Tablet: em linha e centralizado */
-    display: flex; 
+    /* Padrão: Centralizado e em linha */
+    display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Permite quebrar se a tela for muito estreita */
+    flex-wrap: wrap; 
     margin-top: 10px;
+    padding: 0 10px;
 }
 nav a {
     color: white;
     text-decoration: none;
-    margin: 0 15px;
-    padding: 5px 10px;
+    margin: 5px 15px; /* Espaçamento entre os links */
+    padding: 8px 15px;
     border-radius: 5px;
     font-weight: bold;
     transition: background-color 0.3s;
-    white-space: nowrap; /* Impede que os nomes das abas quebrem */
+    white-space: nowrap; 
 }
 nav a:hover,
 nav a.ativo {
@@ -128,7 +121,7 @@ nav a.ativo {
 /* --- 4. ELEMENTOS ESPECÍFICOS --- */
 /* ======================================= */
 
-/* Estilo para Artigos de Notícias */
+/* Destaques (Notícias e Eventos) */
 .noticias-container article,
 #listaEventos li {
     border-left: 4px solid var(--cor-secundaria);
@@ -140,9 +133,9 @@ nav a.ativo {
     margin-top: 0;
 }
 
-/* Ícones sociais (RESOLVE O PROBLEMA DO ÍCONE ENORME) */
+/* Ícones Sociais (Instagram) */
 .icone-redes {
-    width: 24px;   
+    width: 24px;   /* TAMANHO FIXO CORRIGIDO */
     height: 24px;  
     vertical-align: middle; 
 }
@@ -153,12 +146,15 @@ nav a.ativo {
     color: var(--cor-secundaria);
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s;
 }
 
 /* Formulários */
-form input,
-form textarea {
+.contato-wrapper {
+    display: flex;
+    flex-direction: column; /* Padrão em coluna para celular */
+    gap: 30px;
+}
+form input, form textarea {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
@@ -182,58 +178,76 @@ form button[type="submit"]:hover {
     background-color: var(--cor-principal);
 }
 
-/* ======================================= */
-/* --- 5. RESPONSIVIDADE (MEDIA QUERIES) --- */
-/* ======================================= */
-
-/* Layout de Contato (Padrão: Coluna) */
-.contato-wrapper {
-    display: flex;
-    flex-direction: column; 
-    gap: 30px;
+/* Botão de Modo Escuro */
+#modoBtn {
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#modoBtn:hover {
+    background-color: var(--cor-secundaria);
 }
 
-/* Tablet e Desktop (Acima de 768px) */
+/* ======================================= */
+/* --- 5. MEDIA QUERIES (RESPONSIVIDADE) --- */
+/* ======================================= */
+
+/* Telas Grandes (Desktop/Tablet - Acima de 768px) */
 @media (min-width: 768px) {
-    /* Layout de Contato: Lado a Lado (Formulário maior) */
+    /* Contato lado a lado */
     .contato-wrapper {
         flex-direction: row;
         align-items: flex-start;
         gap: 30px;
     }
     .contato-info {
-        flex: 1; /* Ocupa 1/3 */
+        flex: 1; /* Ocupa cerca de 1/3 */
     }
     .formulario {
-        flex: 2; /* Ocupa 2/3 */
+        flex: 2; /* Ocupa cerca de 2/3 */
     }
 }
 
-/* Celulares (Máximo 600px) */
+/* Telas Pequenas (Celulares - Máximo 600px) */
 @media (max-width: 600px) {
     
-    /* Menu de Navegação em Celular: Em Coluna */
-    nav {
-        flex-direction: column; 
-        gap: 5px;
-        padding: 0 10px;
-        align-items: stretch; /* Ocupa a largura total */
-    }
-    nav a {
-        display: block; /* Garante que o link ocupe toda a área */
-        margin: 2px 0;
-        padding: 8px;
-        font-size: 1em;
-        text-align: center;
+    /* Reposiciona o botão do modo escuro */
+    #modoBtn {
+        top: 10px;
+        right: 10px;
     }
     
-    header {
-        padding: 10px 0; /* Diminui o padding do header */
+    /* Menu em Coluna para Celular */
+    nav {
+        flex-direction: column; 
+        gap: 0;
+        padding: 0 5px;
+        align-items: stretch; /* Garante que os links preencham a largura */
     }
+    nav a {
+        margin: 2px 0;
+        padding: 10px;
+        text-align: center;
+        font-size: 1em;
+    }
+    
     header h1 {
         font-size: 2em;
     }
+    
     main {
         padding: 10px;
+    }
+    
+    section {
+        padding: 15px;
     }
 }
