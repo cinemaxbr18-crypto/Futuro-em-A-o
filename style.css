@@ -12,8 +12,8 @@
 
 /* MODO ESCURO (Aplicação via JavaScript na classe .dark-mode) */
 body.dark-mode {
-    --cor-principal: #004f8f; /* Azul mais claro para contraste */
-    --cor-secundaria: #006cc4; 
+    --cor-principal: #004f8f;
+    --cor-secundaria: #006cc4;
     --cor-fundo: #121212;
     --cor-texto: #e0e0e0;
     --cor-borda: #444;
@@ -23,7 +23,7 @@ body.dark-mode {
 
 * {
     box-sizing: border-box;
-    transition: background-color 0.5s, color 0.5s, border-color 0.5s; /* Transição suave */
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
 }
 
 body {
@@ -68,7 +68,7 @@ nav a.ativo {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* --- 3. Conteúdo Principal --- */
+/* --- 3. Conteúdo Principal e Seções --- */
 main {
     flex-grow: 1;
     padding: 20px;
@@ -100,6 +100,12 @@ h2 {
 }
 
 /* --- 4. Formulários (Contato) --- */
+.contato-wrapper {
+    display: flex;
+    flex-direction: column; /* Padrão: coluna (celular) */
+    gap: 30px;
+}
+
 form input,
 form textarea {
     width: 100%;
@@ -125,6 +131,26 @@ form button[type="submit"]:hover {
     background-color: var(--cor-principal);
 }
 
+/* Ícones sociais */
+.instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--cor-secundaria);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+.icone-redes {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
 /* --- 5. Elementos Fixos (Modo Btn e Topo Btn) --- */
 #modoBtn {
     background-color: var(--cor-principal);
@@ -142,10 +168,6 @@ form button[type="submit"]:hover {
 #modoBtn:hover {
     background-color: var(--cor-secundaria);
 }
-#topoBtn {
-    /* Estilos inline do JS, mas o hover é bom */
-    transition: background-color 0.3s;
-}
 #topoBtn:hover {
     background-color: var(--cor-secundaria) !important;
 }
@@ -153,7 +175,7 @@ form button[type="submit"]:hover {
 /* --- 6. Carrossel (Fotos) --- */
 .carrossel {
     position: relative;
-    max-width: 600px; /* Limite o tamanho da galeria */
+    max-width: 600px;
     margin: 20px auto;
     border: 1px solid var(--cor-borda);
     border-radius: 8px;
@@ -161,6 +183,7 @@ form button[type="submit"]:hover {
     background: var(--cor-card-fundo);
     padding: 15px;
 }
+/* ... (Seus estilos de carrossel) ... */
 .midia-box {
     display: flex;
     justify-content: center;
@@ -210,18 +233,92 @@ footer {
     color: white;
     text-align: center;
     padding: 15px;
-    margin-top: auto; /* Garante que o footer fique no final da página */
-}
-/* --- Ajuste no ícone do Instagram no Contato --- */
-.icone-redes {
-    width: 24px;   /* Define a largura padrão de um ícone */
-    height: 24px;  /* Define a altura padrão de um ícone */
-    vertical-align: middle; /* Alinha o ícone com o texto */
+    margin-top: auto;
 }
 
-/* Regra de responsividade (MANTIDA) */
-img, video {
-  max-width: 100%; /* Garante que as mídias não ultrapassem o container */
-  height: auto;
-  margin-top: 10px;
+
+/* ======================================= */
+/* --- 8. MEDIA QUERIES (RESPONSIVIDADE) --- */
+/* ======================================= */
+
+/* Telas Pequenas (Celulares - até 600px) */
+@media (max-width: 600px) {
+    
+    header {
+        padding-top: 50px; /* Espaço para o botão de modo */
+    }
+
+    /* Menu de Navegação - De linha para coluna */
+    nav {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 10px;
+    }
+    nav a {
+        display: block; /* Ocupa a largura total */
+        margin: 5px 0;
+        padding: 8px;
+        font-size: 1em;
+    }
+    
+    /* Títulos e Conteúdo */
+    header h1 {
+        font-size: 2em;
+    }
+    section {
+        padding: 15px;
+    }
+    main {
+        padding: 10px;
+    }
+
+    /* Botão de Modo Escuro no Celular */
+    #modoBtn {
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+
+    /* Reduz a altura do carrossel para economizar espaço */
+    .midia-box {
+        min-height: 250px;
+    }
+}
+
+/* Telas Médias (Tablets - 601px até 992px) */
+@media (min-width: 601px) and (max-width: 992px) {
+    /* Navegação em linha, mas mais compacta */
+    nav a {
+        margin: 0 10px;
+        padding: 5px 8px;
+    }
+    
+    /* Layout de Contato lado a lado */
+    .contato-wrapper {
+        flex-direction: row;
+        gap: 40px;
+        justify-content: space-between;
+    }
+    .contato-info, .formulario {
+        flex-basis: 48%; /* Dá um pouco mais de espaço */
+    }
+}
+
+
+/* Telas Grandes (Notebooks e Desktops - a partir de 993px) */
+@media (min-width: 993px) {
+    /* Mantém o layout de Contato lado a lado, com proporção 1:2 */
+    .contato-wrapper {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 30px;
+    }
+    .contato-info {
+        flex: 1; /* Ocupa 1/3 do espaço */
+    }
+    .formulario {
+        flex: 2; /* Ocupa 2/3 do espaço */
+    }
 }
