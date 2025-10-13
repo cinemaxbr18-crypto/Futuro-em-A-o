@@ -37,7 +37,8 @@ body {
     min-height: 100vh;
 }
 
-/* --- 2. Cabeçalho e Navegação --- */
+5px;
+    font-size: 1.2em;/* --- 2. Cabeçalho e Navegação (AJUSTADO) --- */
 header {
     background-color: var(--cor-principal);
     color: white;
@@ -53,6 +54,12 @@ header h3 {
     margin: 5px 0 15px;
     font-size: 1.2em;
     font-weight: 300;
+}
+/* Regra da Navegação Padrão (Desktop/Tablet) */
+nav {
+    display: flex; /* Garante que os links fiquem em linha */
+    justify-content: center; /* Centraliza o bloco de links */
+    flex-wrap: wrap; /* Permite quebrar linha se a tela for muito pequena */
 }
 nav a {
     color: white;
@@ -322,3 +329,4 @@ footer {
         flex: 2; /* Ocupa 2/3 do espaço */
     }
 }
+
