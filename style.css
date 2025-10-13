@@ -1,0 +1,227 @@
+/* --- 1. Variáveis e Reset Básico (Atualizado para Modo Escuro) --- */
+:root {
+    /* MODO CLARO PADRÃO */
+    --cor-principal: #02457A; 
+    --cor-secundaria: #006cc4;
+    --cor-fundo: #f4f4f9;
+    --cor-texto: #333;
+    --cor-borda: #ccc;
+    --cor-shadow: rgba(0, 0, 0, 0.1);
+    --cor-card-fundo: white;
+}
+
+/* MODO ESCURO (Aplicação via JavaScript na classe .dark-mode) */
+body.dark-mode {
+    --cor-principal: #004f8f; /* Azul mais claro para contraste */
+    --cor-secundaria: #006cc4; 
+    --cor-fundo: #121212;
+    --cor-texto: #e0e0e0;
+    --cor-borda: #444;
+    --cor-shadow: rgba(255, 255, 255, 0.05);
+    --cor-card-fundo: #1e1e1e;
+}
+
+* {
+    box-sizing: border-box;
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s; /* Transição suave */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- 2. Cabeçalho e Navegação --- */
+header {
+    background-color: var(--cor-principal);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px var(--cor-shadow);
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+header h3 {
+    margin: 5px 0 15px;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+nav a:hover,
+nav a.ativo {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- 3. Conteúdo Principal --- */
+main {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+section {
+    background: var(--cor-card-fundo);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px var(--cor-shadow);
+}
+h2 {
+    color: var(--cor-principal);
+    border-bottom: 2px solid var(--cor-secundaria);
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+.noticias-container article {
+    border-left: 4px solid var(--cor-secundaria);
+    padding-left: 15px;
+    margin-bottom: 25px;
+}
+.noticias-container article h3 {
+    color: var(--cor-principal);
+    margin-top: 0;
+}
+
+/* --- 4. Formulários (Contato) --- */
+form input,
+form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    background: var(--cor-card-fundo);
+    color: var(--cor-texto);
+    font-size: 1em;
+}
+form button[type="submit"] {
+    background-color: var(--cor-secundaria);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+form button[type="submit"]:hover {
+    background-color: var(--cor-principal);
+}
+
+/* --- 5. Elementos Fixos (Modo Btn e Topo Btn) --- */
+#modoBtn {
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#modoBtn:hover {
+    background-color: var(--cor-secundaria);
+}
+#topoBtn {
+    /* Estilos inline do JS, mas o hover é bom */
+    transition: background-color 0.3s;
+}
+#topoBtn:hover {
+    background-color: var(--cor-secundaria) !important;
+}
+
+/* --- 6. Carrossel (Fotos) --- */
+.carrossel {
+    position: relative;
+    max-width: 600px; /* Limite o tamanho da galeria */
+    margin: 20px auto;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--cor-card-fundo);
+    padding: 15px;
+}
+.midia-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px;
+}
+.midia-box img,
+.midia-box video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+}
+.botoes {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+.carrossel button {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    line-height: 1;
+}
+.carrossel button:hover {
+    background: var(--cor-secundaria);
+}
+.contador {
+    text-align: center;
+    padding: 10px 0;
+    color: var(--cor-texto);
+}
+
+/* --- 7. Rodapé (Footer) --- */
+footer {
+    background: var(--cor-principal);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: auto; /* Garante que o footer fique no final da página */
+}
+/* --- Ajuste no ícone do Instagram no Contato --- */
+.icone-redes {
+    width: 24px;   /* Define a largura padrão de um ícone */
+    height: 24px;  /* Define a altura padrão de um ícone */
+    vertical-align: middle; /* Alinha o ícone com o texto */
+}
+
+/* Regra de responsividade (MANTIDA) */
+img, video {
+  max-width: 100%; /* Garante que as mídias não ultrapassem o container */
+  height: auto;
+  margin-top: 10px;
+}
