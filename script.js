@@ -11,9 +11,7 @@ const dadosDoBlog = {
         // Adicione mais notícias aqui
     ],
     eventos: [
-        {
-        // Adicione mais eventos aqui
-        },
+        
         // Adicione mais eventos aqui
     ],
     albuns: {
@@ -236,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
 
