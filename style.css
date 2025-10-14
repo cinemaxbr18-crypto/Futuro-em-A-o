@@ -234,4 +234,111 @@ footer {
         flex: 2; 
     }
 }
+/* --- Estilos da Página de Contato (Layout e Formulário) --- */
+
+/* 1. Divisão do Conteúdo (Flexbox) */
+.contato-wrapper {
+    display: flex;
+    flex-direction: column; /* Padrão: Coluna no celular */
+    gap: 30px; 
+}
+
+/* 2. Coluna de Informações */
+.contato-info {
+    flex: 1; /* Ocupa 1/3 do espaço em telas grandes */
+    padding: 15px;
+    border-right: 1px solid var(--cor-borda); 
+}
+.contato-info h3 {
+    color: var(--cor-principal);
+    border-bottom: 2px solid var(--cor-principal);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* 3. Estilo para as Redes Sociais */
+.redes-sociais {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--cor-secundaria);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.instagram-link:hover {
+    color: var(--cor-principal);
+}
+
+.icone-redes {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+}
+
+/* 4. Estilo do Formulário */
+.formulario {
+    flex: 2; /* Ocupa 2/3 do espaço em telas grandes */
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.formulario label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--cor-texto);
+}
+
+.formulario input,
+.formulario textarea {
+    padding: 10px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 5px;
+    background-color: var(--cor-card-fundo);
+    color: var(--cor-texto);
+    font-size: 1em;
+}
+
+.formulario button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: var(--cor-secundaria);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.formulario button:hover {
+    background-color: var(--cor-principal);
+}
+
+/* 5. Responsividade para Telas Maiores (PC) */
+@media (min-width: 768px) {
+    .contato-wrapper {
+        flex-direction: row; /* Coloca lado a lado no PC */
+        align-items: flex-start;
+    }
+    .contato-info {
+        padding-right: 30px;
+        padding-left: 0;
+    }
+    .formulario {
+        padding-left: 30px;
+    }
+}
 
