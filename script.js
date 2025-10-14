@@ -22,7 +22,7 @@ const dadosDoBlog = {
             { tipo: 'imagem', src: 'arquivos/foto3.jpg' } 
         ],
         reuniao: [
-            { tipo: 'imagem', src: 'arquivos/foto5.jpg' },
+            { tipo: 'imagem', src: 'Reunião foto.jpg' },
             { tipo: 'video', src: 'arquivos/video2.mp4' }
         ]
     }
@@ -234,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
 
