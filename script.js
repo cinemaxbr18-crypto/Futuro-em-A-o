@@ -15,7 +15,7 @@ const dadosDoBlog = {
         // Adicione mais eventos aqui
     ],
     albuns: {
-        voltaAulas: [
+        DesfileEstudantilGrêmio: [
             { tipo: 'imagem', src: 'arquivos/foto1.jpg' },
             { tipo: 'imagem', src: 'arquivos/foto2.jpg' },
             { tipo: 'video', src: 'arquivos/video1.mp4' },
@@ -234,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
 
