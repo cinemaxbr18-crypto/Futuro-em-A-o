@@ -12,9 +12,7 @@ const dadosDoBlog = {
     ],
     eventos: [
         {
-            nome: "Feira Cultural de Talentos",
-            data: "15/11/2025",
-            descricao: "Mostre seu talento! Dança, música, teatro e arte. Inscrições abertas.",
+           // Adicione mais eventos aqui
         },
         // Adicione mais eventos aqui
     ],
@@ -238,4 +236,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
