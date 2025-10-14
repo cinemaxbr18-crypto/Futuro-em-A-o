@@ -9,6 +9,7 @@
 <body id="pageBody">
   <header>
     <h1>Fale Conosco</h1>
+    
     <nav>
       <a href="index.html">Início</a>
       <a href="noticias.html">Notícias</a>
@@ -28,28 +29,35 @@
         
         <div class="contato-info">
           <h3>Nossas Informações</h3>
-          <p>Se preferir, use nossos canais diretos:</p>
+          <p>Se você tem dúvidas, sugestões ou quer participar das ações do Grêmio, fale conosco através do formulário ou de nossas redes sociais.</p>
           
           <div class="redes-sociais">
-            <a href="https://www.instagram.com/_futuro_em_acao.ofc?igsh=MWh2N3Nxc2k0N2dyZQ== " target="_blank" class="instagram-link">
-              <img src="Instagram_logo_2022.png" alt="Instagram" class="icone-redes">
+            <a href="https://www.instagram.com/_futuro_em_acao.ofc?igsh=MWh2N3Nxc2k0N2dyZQ==" target="_blank" class="instagram-link">
+              <img src="arquivos/Instagram_logo_2022.png" alt="Instagram" class="icone-redes">
               @_futuro_em_acao
             </a>
-            </div>
+          </div>
+          
+          <p class="email-contato">
+            <span style="font-weight: bold;">E-mail do Grêmio:</span> geilsomcarlos93@gmail.com
+          </p>
         </div>
         
-        <form class="formulario" action="https://formspree.io/f/movkpkey" method="POST">
+        <form class="formulario" 
+              action="https://formspree.io/f/movkpkey" 
+              method="POST">
+              
           <h3>Envie sua Mensagem</h3>
           
           <label for="nome">Nome Completo:</label>
           <input type="text" id="nome" name="nome" required>
 
+          <label for="assunto">Assunto:</label>
+          <input type="text" id="assunto" name="assunto" required>
+          
           <label for="email">Seu E-mail:</label>
           <input type="email" id="email" name="_replyto" required> 
           
-          <label for="assunto">Assunto:</label>
-          <input type="text" id="assunto" name="assunto" required>
-
           <label for="mensagem">Mensagem:</label>
           <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
 
@@ -66,5 +74,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
