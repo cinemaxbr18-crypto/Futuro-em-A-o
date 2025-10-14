@@ -37,7 +37,7 @@ const dadosDoBlog = {
 // A. Ativar link atual do menu
 function setActiveLink() {
     const links = document.querySelectorAll("nav a");
-    const pathname = window.location.pathname.split('/').pop() || 'Index.html';
+    const pathname = window.location.pathname.split('/').pop() || 'index.html';
 
     links.forEach(link => {
         // Usa o nome do arquivo para comparação, garantindo que "Index.html" seja tratado corretamente.
@@ -90,7 +90,7 @@ function carregarNoticias(containerId = 'noticiasSection', limite = 0) {
         article.innerHTML = `
             <h3>${post.titulo}</h3>
             <p><strong>Data:</strong> ${post.data}</p>
-            <p>${post.resumo} <a href="#">Ler Mais</a></p>
+            <p>${post.resumo} <a href="#"></a></p>
         `;
         container.appendChild(article);
     });
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Carregamento de conteúdo por página
     const pathname = window.location.pathname.split('/').pop() || 'Index.html';
 
-    if (pathname === 'Index.html' || pathname === '') {
+    if (pathname === 'index.html' || pathname === '') {
         carregarNoticias('destaquesContainer', 2); // Carrega 2 destaques
         initSearch(); 
     } else if (pathname === 'noticias.html') {
@@ -238,3 +238,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
