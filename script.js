@@ -12,7 +12,7 @@ const dadosDoBlog = {
     ],
     eventos: [
         {
-           // Adicione mais eventos aqui
+        // Adicione mais eventos aqui
         },
         // Adicione mais eventos aqui
     ],
@@ -236,5 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
