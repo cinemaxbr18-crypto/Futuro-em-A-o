@@ -57,7 +57,7 @@
         <div class="hero-pattern text-white relative overflow-hidden py-20 px-4">
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             <div class="max-w-7xl mx-auto relative z-10 text-center">
-                <h1 id="display-title" class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 fade-in">Carregando...</h1>
+                <h1 id="display-title" class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 fade-in">Conectando...</h1>
                 <p id="display-desc" class="mt-4 max-w-2xl mx-auto text-xl text-slate-200 fade-in"></p>
             </div>
         </div>
@@ -87,7 +87,7 @@
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <h2 class="text-2xl font-bold">Área Restrita</h2>
-                <p class="text-slate-500 text-sm">Digite a senha definida no painel</p>
+                <p class="text-slate-500 text-sm">Digite a senha do Remote Config</p>
             </div>
             <form onsubmit="app.login(event)" class="space-y-4">
                 <div class="relative">
@@ -109,7 +109,7 @@
                     <div class="bg-primary text-white p-3 rounded-2xl"><i class="fa-solid fa-gauge-high text-xl"></i></div>
                     <div>
                         <h1 class="text-xl font-bold">Painel Administrativo</h1>
-                        <p class="text-xs text-slate-400">Configurações protegidas via Remote Cloud</p>
+                        <p class="text-xs text-slate-400">Configurações protegidas em Nuvem</p>
                     </div>
                 </div>
                 <button onclick="app.logout()" class="bg-red-50 text-red-600 px-6 py-2.5 rounded-xl text-sm font-bold border border-red-100 hover:bg-red-100 transition">Sair</button>
@@ -120,7 +120,7 @@
                 <div class="space-y-6">
                     <div class="bg-white p-6 rounded-3xl shadow-sm border">
                         <h3 class="font-bold mb-6 flex items-center text-slate-700">
-                            <i class="fa-solid fa-cloud mr-3 text-primary"></i>Remote Config (Senha/Visual)
+                            <i class="fa-solid fa-cloud mr-3 text-primary"></i>Remote Config
                         </h3>
                         <form id="form-config" class="space-y-4">
                             <div>
@@ -133,20 +133,15 @@
                                     <input type="color" id="cfg-color-p" class="w-full h-10 p-1 bg-white border rounded-xl">
                                 </div>
                                 <div>
-                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Senha do Painel</label>
-                                    <input type="text" id="cfg-pass" class="w-full p-2.5 bg-slate-50 border rounded-xl text-sm font-mono" placeholder="Ex: 3452">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase">Senha Painel</label>
+                                    <input type="text" id="cfg-pass" class="w-full p-2.5 bg-slate-50 border rounded-xl text-sm font-mono">
                                 </div>
                             </div>
                             <div>
                                 <label class="text-[10px] font-bold text-slate-400 uppercase">Banner Principal</label>
                                 <textarea id="cfg-desc" rows="2" class="w-full p-2.5 bg-slate-50 border rounded-xl text-sm"></textarea>
                             </div>
-                            <div>
-                                <label class="text-[10px] font-bold text-slate-400 uppercase">Links Externos</label>
-                                <input type="url" id="cfg-logo" placeholder="URL da Logo" class="w-full p-2.5 bg-slate-50 border rounded-xl text-sm mb-2">
-                                <input type="url" id="cfg-insta" placeholder="URL Instagram" class="w-full p-2.5 bg-slate-50 border rounded-xl text-sm">
-                            </div>
-                            <button type="submit" class="w-full bg-primary text-white text-xs font-bold py-3 rounded-xl uppercase tracking-widest shadow-lg shadow-blue-500/20">Atualizar Remote Config</button>
+                            <button type="submit" class="w-full bg-primary text-white text-xs font-bold py-3 rounded-xl uppercase shadow-lg">Salvar na Nuvem</button>
                         </form>
                     </div>
 
@@ -163,7 +158,7 @@
                                 <option value="eventos">Eventos</option>
                             </select>
                             <textarea id="news-content" rows="4" placeholder="Conteúdo..." required class="w-full p-3 bg-slate-50 border rounded-xl text-sm"></textarea>
-                            <button type="submit" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-black transition uppercase text-xs tracking-widest">Publicar</button>
+                            <button type="submit" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-black transition uppercase text-xs">Publicar</button>
                         </form>
                     </div>
                 </div>
@@ -171,10 +166,6 @@
                 <!-- LISTA -->
                 <div class="lg:col-span-2 space-y-4">
                     <div class="bg-white rounded-3xl border shadow-sm overflow-hidden">
-                        <div class="p-6 bg-slate-50 border-b flex justify-between items-center">
-                            <h3 class="font-bold text-slate-700 uppercase text-xs tracking-widest">Feed de Postagens</h3>
-                            <span id="post-count" class="bg-white border px-3 py-1 rounded-full text-xs font-bold text-slate-500">0 posts</span>
-                        </div>
                         <div id="admin-list" class="divide-y max-h-[800px] overflow-y-auto"></div>
                     </div>
                 </div>
@@ -183,25 +174,36 @@
     </div>
 
     <footer class="bg-white border-t py-12 text-center text-slate-400 text-xs">
-        <p class="font-bold text-slate-600 mb-2" id="foot-name">Grêmio Estudantil Futuro em Ação</p>
+        <p class="font-bold text-slate-600 mb-2" id="foot-name">Grêmio Estudantil</p>
         <p>Todos os direitos reservados © 2026</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, deleteDoc, setDoc, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, deleteDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // CONFIGURAÇÕES E AMBIENTE (REGRAS 1, 2 e 3)
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app_firebase = initializeApp(firebaseConfig);
+        // ==========================================
+        // ATENÇÃO: PREENCHA COM SEUS DADOS DO FIREBASE
+        // ==========================================
+    const firebaseConfig = {
+  apiKey: "AIzaSyBOoD43XKmBB5ASzknb5J3sIj0McNVamUo",
+  authDomain: "visualizador-e-editor.firebaseapp.com",
+  projectId: "visualizador-e-editor",
+  storageBucket: "visualizador-e-editor.firebasestorage.app",
+  messagingSenderId: "761275575900",
+  appId: "1:761275575900:web:1ac7a32b8656ef95520099",
+  measurementId: "G-FC2TKMQ0M4"
+};
+        // ==========================================
+
+        // Fallback para o ambiente local (não mexer)
+        const finalConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : firebaseConfig;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'gremio-producao-v1';
+
+        const app_firebase = initializeApp(finalConfig);
         const auth = getAuth(app_firebase);
         const db = getFirestore(app_firebase);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'gremio-futuro-app';
-
-        // CAMINHOS OBRIGATÓRIOS (REGRA 1)
-        const newsPath = `/artifacts/${appId}/public/data/news`;
-        const configPath = `/artifacts/${appId}/public/data/settings/main`;
         
         const newsRef = collection(db, 'artifacts', appId, 'public', 'data', 'news');
         const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'main');
@@ -213,7 +215,6 @@
             navigate: (view) => {
                 document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
                 document.getElementById(`view-${view}`).classList.remove('hidden');
-                window.scrollTo(0,0);
             },
             filterContent: (aba) => {
                 document.getElementById('current-tab-title').innerText = aba;
@@ -229,49 +230,42 @@
             },
             logout: () => app.navigate('home'),
             deleteItem: async (id) => {
-                if(confirm("Excluir postagem?")) {
-                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'news', id));
-                }
+                if(confirm("Excluir?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'news', id));
             }
         };
 
         async function init() {
-            // REGRA 3: Autenticação antes de qualquer query
             try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (e) { console.error("Erro Auth:", e); }
-
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    setupListeners();
-                }
-            });
+                // Autenticação é obrigatória para acessar o Firestore
+                await signInAnonymously(auth);
+                onAuthStateChanged(auth, (user) => {
+                    if (user) setupListeners();
+                });
+            } catch (e) { 
+                console.error("Erro ao conectar:", e);
+                document.getElementById('display-title').innerText = "Erro de Conexão";
+            }
         }
 
         function setupListeners() {
-            // ESCUTAR CONFIGURAÇÕES (REMOTE CONFIG)
+            // Escuta Configurações
             onSnapshot(configDocRef, (snap) => {
                 if(snap.exists()) {
                     siteConfig = snap.data();
                     applyConfig();
                 } else {
-                    // Inicializa se não existir
                     setDoc(configDocRef, siteConfig);
                 }
-            }, (err) => console.error("Erro nas permissões de Config:", err));
+            });
 
-            // ESCUTAR POSTAGENS (REAL-TIME)
+            // Escuta Postagens
             const q = query(newsRef, orderBy('timestamp', 'desc'));
             onSnapshot(q, (snap) => {
                 allPosts = [];
                 snap.forEach(d => allPosts.push({ id: d.id, ...d.data() }));
                 renderFeed(allPosts.filter(p => p.aba === 'inicio'));
                 renderAdmin();
-            }, (err) => console.error("Erro nas permissões de Posts:", err));
+            });
         }
 
         function applyConfig() {
@@ -279,42 +273,19 @@
             document.getElementById('display-title').innerText = siteConfig.title || "Futuro em Ação";
             document.getElementById('display-desc').innerText = siteConfig.desc || "";
             document.getElementById('nav-site-name').innerHTML = `Futuro em <span class="text-primary">Ação</span>`;
-            document.getElementById('foot-name').innerText = `Grêmio Estudantil ${siteConfig.title}`;
-            
-            if(siteConfig.logo) {
-                const img = document.getElementById('nav-logo');
-                img.src = siteConfig.logo;
-                img.classList.remove('hidden');
-            }
-            document.getElementById('nav-insta').href = siteConfig.insta || "#";
-
-            // Preenche Admin
-            document.getElementById('cfg-title').value = siteConfig.title || "";
-            document.getElementById('cfg-desc').value = siteConfig.desc || "";
-            document.getElementById('cfg-logo').value = siteConfig.logo || "";
-            document.getElementById('cfg-insta').value = siteConfig.insta || "";
-            document.getElementById('cfg-color-p').value = siteConfig.colorP || "#2563eb";
             document.getElementById('cfg-pass').value = siteConfig.pass || "3452";
+            document.getElementById('cfg-title').value = siteConfig.title || "";
+            document.getElementById('cfg-color-p').value = siteConfig.colorP || "#2563eb";
         }
 
         function renderFeed(filtered) {
             const container = document.getElementById('news-container');
-            const empty = document.getElementById('empty-state');
-            container.innerHTML = '';
-            
-            if(filtered.length === 0) {
-                empty.classList.remove('hidden');
-                return;
-            }
-            empty.classList.add('hidden');
-
+            container.innerHTML = filtered.length ? '' : '<p class="text-center py-10 col-span-3 text-slate-400">Nenhum post aqui.</p>';
             filtered.forEach(p => {
                 container.innerHTML += `
-                    <article class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-news flex flex-col fade-in">
-                        <div class="p-8">
-                            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">${p.title}</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">${p.content}</p>
-                        </div>
+                    <article class="bg-white p-8 rounded-3xl shadow-sm border fade-in">
+                        <h3 class="text-2xl font-bold mb-3">${p.title}</h3>
+                        <p class="text-slate-600 text-sm whitespace-pre-wrap">${p.content}</p>
                     </article>
                 `;
             });
@@ -322,19 +293,12 @@
 
         function renderAdmin() {
             const list = document.getElementById('admin-list');
-            document.getElementById('post-count').innerText = `${allPosts.length} posts`;
             list.innerHTML = '';
-            
             allPosts.forEach(p => {
                 list.innerHTML += `
-                    <div class="p-4 flex justify-between items-center bg-white hover:bg-slate-50 transition">
-                        <div class="truncate">
-                            <p class="font-bold text-slate-800 text-sm truncate">${p.title}</p>
-                            <span class="text-[9px] bg-slate-200 px-2 py-0.5 rounded text-slate-500 font-bold uppercase">${p.aba}</span>
-                        </div>
-                        <button onclick="app.deleteItem('${p.id}')" class="text-slate-300 hover:text-red-500 p-2">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
+                    <div class="p-4 flex justify-between items-center">
+                        <div class="truncate"><p class="font-bold text-sm truncate">${p.title}</p></div>
+                        <button onclick="app.deleteItem('${p.id}')" class="text-red-400 p-2"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 `;
             });
@@ -342,33 +306,24 @@
 
         document.getElementById('form-config').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.innerText = "ATUALIZANDO NUVEM...";
-            try {
-                await setDoc(configDocRef, {
-                    title: document.getElementById('cfg-title').value,
-                    desc: document.getElementById('cfg-desc').value,
-                    logo: document.getElementById('cfg-logo').value,
-                    insta: document.getElementById('cfg-insta').value,
-                    colorP: document.getElementById('cfg-color-p').value,
-                    pass: document.getElementById('cfg-pass').value
-                });
-                alert("Remote Config Atualizado!");
-            } catch(e) { alert("Erro de permissão ao salvar configs."); }
-            btn.innerText = "Atualizar Remote Config";
+            await setDoc(configDocRef, {
+                title: document.getElementById('cfg-title').value,
+                desc: document.getElementById('cfg-desc').value,
+                colorP: document.getElementById('cfg-color-p').value,
+                pass: document.getElementById('cfg-pass').value
+            });
+            alert("Configurações atualizadas!");
         });
 
         document.getElementById('form-news').addEventListener('submit', async (e) => {
             e.preventDefault();
-            try {
-                await addDoc(newsRef, {
-                    title: document.getElementById('news-title').value,
-                    aba: document.getElementById('news-aba').value,
-                    content: document.getElementById('news-content').value,
-                    timestamp: serverTimestamp()
-                });
-                e.target.reset();
-            } catch(e) { alert("Erro de permissão ao publicar."); }
+            await addDoc(newsRef, {
+                title: document.getElementById('news-title').value,
+                aba: document.getElementById('news-aba').value,
+                content: document.getElementById('news-content').value,
+                timestamp: serverTimestamp()
+            });
+            e.target.reset();
         });
 
         init();
