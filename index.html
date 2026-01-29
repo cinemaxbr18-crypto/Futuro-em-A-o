@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grêmio Estudantil | Futuro em Ação</title>
+    
+    <!-- Tailwind CSS (Design) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
+        
+        /* Efeitos Visuais */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .hero-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .card-news {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-news:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px; height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Utilitários de Animação */
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800">
+
+    <!-- Navbar (Comum) -->
+    <nav class="fixed w-full z-50 top-0 start-0 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="app.navigate('home')">
+                    <div class="bg-blue-600 text-white p-1.5 rounded-lg mr-2 shadow-lg shadow-blue-500/30">
+                        <i class="fa-solid fa-graduation-cap text-lg"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Grêmio<span class="text-blue-600">Estudantil</span></span>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" onclick="app.navigate('home')" class="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">Início</a>
+                    <a href="#feed" class="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">Notícias</a>
+                    <a href="#" class="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">Eventos</a>
+                </div>
+
+                <!-- Botão Admin -->
+                <div>
+                    <button onclick="app.navigate('login')" class="group relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                        <span class="relative px-5 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            <i class="fa-solid fa-lock text-xs mr-2"></i>Área Restrita
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="h-16"></div> <!-- Espaçador -->
+
+    <!-- ============================================ -->
+    <!-- VIEW 1: SITE VISUALIZADOR (ALUNOS)           -->
+    <!-- ============================================ -->
+    <div id="view-home" class="view-section flex-grow">
+        
+        <!-- Hero Section (Gerenciável via Editor) -->
+        <div class="hero-pattern text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
+            <div class="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                
+                <div id="loader-hero" class="flex justify-center mb-4"><div class="spinner border-blue-400 border-t-blue-600 w-8 h-8"></div></div>
+                
+                <h1 id="display-title" class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 fade-in hidden">
+                    Carregando...
+                </h1>
+                <p id="display-desc" class="mt-4 max-w-2xl mx-auto text-xl text-slate-300 fade-in hidden">
+                    Conectando ao sistema...
+                </p>
+
+                <div class="mt-10 flex justify-center gap-4 fade-in" style="animation-delay: 0.2s">
+                    <a href="#feed" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-blue-500/40 transition transform hover:-translate-y-1">
+                        Ver Novidades
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feed de Notícias -->
+        <div id="feed" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="flex items-center justify-between mb-10 border-b border-gray-200 pb-5">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Mural de Avisos</h2>
+                    <p class="text-slate-500 mt-1">Fique por dentro do que acontece na escola</p>
+                </div>
+                <div class="hidden md:block">
+                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded border border-green-400 flex items-center">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>
+                        Atualizado em tempo real
+                    </span>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="news-container" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Skeleton Loader -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 animate-pulse">
+                    <div class="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
+                    <div class="h-6 bg-gray-200 rounded w-3/4 mb-3"></div>
+                    <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                    <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+                </div>
+            </div>
+
+            <div id="empty-state" class="hidden text-center py-20 bg-gray-50 rounded-2xl border border-dashed border-gray-300">
+                <i class="fa-regular fa-folder-open text-4xl text-gray-400 mb-3"></i>
+                <p class="text-gray-500">Nenhuma notícia publicada ainda.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- VIEW 2: LOGIN DO EDITOR (SIMULADO)           -->
+    <!-- ============================================ -->
+    <div id="view-login" class="view-section hidden flex-grow bg-gray-100 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full mx-4 border border-gray-100">
+            <div class="text-center mb-8">
+                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-user-shield text-2xl text-blue-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900">Acesso Restrito</h2>
+                <p class="text-gray-500 text-sm">Painel do Grêmio Estudantil</p>
+            </div>
+            
+            <form onsubmit="app.login(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Senha de Acesso</label>
+                    <input type="password" id="admin-pass" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="••••••••">
+                    <p class="text-xs text-gray-400 mt-1">Dica: use qualquer senha para testar</p>
+                </div>
+                <button type="submit" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg shadow-lg shadow-blue-900/20 transition">
+                    Entrar no Editor
+                </button>
+                <button type="button" onclick="app.navigate('home')" class="w-full text-gray-500 hover:text-gray-700 text-sm font-medium py-2">
+                    Voltar ao Site
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- VIEW 3: EDITOR (ADMIN DASHBOARD)             -->
+    <!-- ============================================ -->
+    <div id="view-admin" class="view-section hidden flex-grow bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-800">Painel de Editor</h1>
+                    <p class="text-slate-500 text-sm">Gerencie o conteúdo do site em tempo real.</p>
+                </div>
+                <button onclick="app.logout()" class="text-red-600 hover:text-red-700 font-medium text-sm flex items-center bg-red-50 px-3 py-1.5 rounded-lg border border-red-100 transition">
+                    <i class="fa-solid fa-right-from-bracket mr-2"></i>Sair
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Coluna Esquerda: Formulários -->
+                <div class="lg:col-span-1 space-y-6">
+                    
+                    <!-- Configurações do Site -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-blue-500 mr-2"></i>Cabeçalho (Hero)
+                        </h3>
+                        <form id="form-config" class="space-y-3">
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 uppercase">Título</label>
+                                <input type="text" name="title" id="input-site-title" class="w-full p-2 border border-slate-300 rounded text-sm focus:border-blue-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-slate-500 uppercase">Subtítulo</label>
+                                <textarea name="desc" id="input-site-desc" rows="2" class="w-full p-2 border border-slate-300 rounded text-sm focus:border-blue-500 outline-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium py-2 rounded transition">
+                                Salvar Alterações
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Criar Notícia -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 border-t-4 border-t-blue-500">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center">
+                            <i class="fa-solid fa-pen-nib text-blue-500 mr-2"></i>Nova Publicação
+                        </h3>
+                        <form id="form-news" class="space-y-3">
+                            <input type="text" id="news-title" placeholder="Título da Notícia" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded text-sm focus:bg-white focus:border-blue-500 outline-none transition">
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <select id="news-tag" class="p-2 bg-slate-50 border border-slate-300 rounded text-sm">
+                                    <option value="Geral">Geral</option>
+                                    <option value="Destaque">Destaque 🔥</option>
+                                    <option value="Esporte">Esporte ⚽</option>
+                                    <option value="Evento">Evento 🎉</option>
+                                </select>
+                                <input type="date" id="news-date" required class="p-2 bg-slate-50 border border-slate-300 rounded text-sm">
+                            </div>
+
+                            <textarea id="news-content" rows="4" placeholder="Escreva o conteúdo aqui..." required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded text-sm focus:bg-white focus:border-blue-500 outline-none transition"></textarea>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded shadow-lg shadow-blue-500/20 transition flex justify-center items-center">
+                                <span class="btn-text">Publicar Agora</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Lista de Gerenciamento -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="p-5 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                            <h3 class="font-bold text-slate-700">Publicações Recentes</h3>
+                            <span class="text-xs text-slate-500 bg-white px-2 py-1 rounded border">Clique na lixeira para apagar</span>
+                        </div>
+                        <div id="admin-list" class="divide-y divide-slate-100 max-h-[600px] overflow-y-auto">
+                            <!-- Lista Preenchida via JS -->
+                            <div class="p-8 text-center text-gray-400 italic">Carregando lista...</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, setDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Configuração Firebase ATUALIZADA
+        const firebaseConfig = {
+            apiKey: "AIzaSyBOoD43XKmBB5ASzknb5J3sIj0McNVamUo",
+            authDomain: "visualizador-e-editor.firebaseapp.com",
+            projectId: "visualizador-e-editor",
+            storageBucket: "visualizador-e-editor.firebasestorage.app",
+            messagingSenderId: "761275575900",
+            appId: "1:761275575900:web:1ac7a32b8656ef95520099",
+            measurementId: "G-FC2TKMQ0M4"
+        };
+
+        // Inicialização
+        const firebaseApp = initializeApp(firebaseConfig);
+        const auth = getAuth(firebaseApp);
+        const db = getFirestore(firebaseApp);
+        const APP_ID = "gremio_app_v1"; 
+
+        // === CORREÇÃO DOS CAMINHOS DO FIRESTORE ===
+        // Regra: Coleção deve ter segmentos ÍMPARES (1, 3, 5). Documento deve ter PARES (2, 4, 6).
+        
+        // Caminho para Documento de Configuração (6 segmentos - OK para doc)
+        // artifacts -> ID -> public -> data -> settings -> site_config
+        const configRef = doc(db, 'artifacts', APP_ID, 'public', 'data', 'settings', 'site_config');
+
+        // Caminho para Coleção de Notícias (5 segmentos - OK para coleção)
+        // artifacts -> ID -> public -> data -> news
+        const newsRef = collection(db, 'artifacts', APP_ID, 'public', 'data', 'news');
+
+        // Estado Global da Aplicação
+        window.app = {
+            navigate: (view) => {
+                document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+                document.getElementById(`view-${view}`).classList.remove('hidden');
+                window.scrollTo(0,0);
+            },
+            login: (e) => {
+                e.preventDefault();
+                // Simulação de login
+                const pass = document.getElementById('admin-pass').value;
+                if(pass.trim() !== "") {
+                    window.app.navigate('admin');
+                } else {
+                    alert('Por favor, digite uma senha.');
+                }
+            },
+            logout: () => {
+                if(confirm("Deseja sair do editor?")) {
+                    document.getElementById('admin-pass').value = "";
+                    window.app.navigate('home');
+                }
+            },
+            deleteItem: async (id) => {
+                if(confirm("Tem certeza que deseja apagar esta notícia?")) {
+                    try {
+                        // Caminho correto para deletar o documento
+                        await deleteDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'news', id));
+                    } catch(err) { alert("Erro ao apagar: " + err.message); }
+                }
+            }
+        };
+
+        // Autenticação Silenciosa (Para permitir leitura/escrita no DB)
+        signInAnonymously(auth).then(() => {
+            console.log("Firebase conectado e autenticado.");
+            startListeners();
+        }).catch(err => {
+            console.error("Erro auth:", err);
+            document.getElementById('display-title').innerText = "Erro Offline";
+            document.getElementById('display-title').classList.remove('hidden');
+        });
+
+        function startListeners() {
+            // 1. OUVINTE DE CONFIGURAÇÃO
+            onSnapshot(configRef, (snap) => {
+                const data = snap.exists() ? snap.data() : { title: "Grêmio Estudantil", desc: "Bem-vindo ao nosso portal oficial." };
+                
+                // Atualiza Site
+                const titleEl = document.getElementById('display-title');
+                const descEl = document.getElementById('display-desc');
+                
+                titleEl.innerText = data.title;
+                descEl.innerText = data.desc;
+                
+                // Mostra elementos
+                document.getElementById('loader-hero').classList.add('hidden');
+                titleEl.classList.remove('hidden');
+                descEl.classList.remove('hidden');
+
+                // Atualiza Admin
+                document.getElementById('input-site-title').value = data.title;
+                document.getElementById('input-site-desc').value = data.desc;
+            });
+
+            // 2. OUVINTE DE NOTÍCIAS
+            const q = query(newsRef, orderBy('timestamp', 'desc'));
+            onSnapshot(q, (snapshot) => {
+                const container = document.getElementById('news-container');
+                const adminList = document.getElementById('admin-list');
+                const emptyState = document.getElementById('empty-state');
+
+                container.innerHTML = '';
+                adminList.innerHTML = '';
+
+                if(snapshot.empty) {
+                    emptyState.classList.remove('hidden');
+                    adminList.innerHTML = '<div class="p-8 text-center text-gray-400">Nenhuma notícia para gerenciar.</div>';
+                } else {
+                    emptyState.classList.add('hidden');
+                    
+                    snapshot.forEach(docSnap => {
+                        const post = docSnap.data();
+                        const dateFormatted = post.date ? new Date(post.date).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'Data n/a';
+
+                        // Card para o Site
+                        container.innerHTML += `
+                            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 card-news flex flex-col h-full">
+                                <div class="p-6 flex-grow">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <span class="px-2.5 py-1 rounded-md text-xs font-bold ${getTagColor(post.tag)}">
+                                            ${post.tag}
+                                        </span>
+                                        <span class="text-xs text-gray-400 ml-auto"><i class="fa-regular fa-clock mr-1"></i>${dateFormatted}</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-2 leading-tight">${post.title}</h3>
+                                    <p class="text-slate-600 text-sm leading-relaxed">${post.content}</p>
+                                </div>
+                                <div class="px-6 pb-6 pt-0 mt-auto border-t border-slate-50">
+                                    <button class="w-full mt-4 text-blue-600 hover:bg-blue-50 font-semibold py-2 rounded transition text-sm">Ler Completo</button>
+                                </div>
+                            </div>
+                        `;
+
+                        // Item da Lista Admin
+                        adminList.innerHTML += `
+                            <div class="p-4 hover:bg-slate-50 transition flex justify-between items-center group">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-sm">${post.title}</h4>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-xs px-2 py-0.5 rounded bg-gray-200 text-gray-600">${post.tag}</span>
+                                        <span class="text-xs text-gray-400">${dateFormatted}</span>
+                                    </div>
+                                </div>
+                                <button onclick="app.deleteItem('${docSnap.id}')" class="text-gray-400 hover:text-red-600 p-2 rounded-full hover:bg-red-50 transition">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        `;
+                    });
+                }
+            });
+        }
+
+        // Helpers
+        function getTagColor(tag) {
+            if(tag === 'Destaque') return 'bg-red-100 text-red-700';
+            if(tag === 'Esporte') return 'bg-green-100 text-green-700';
+            if(tag === 'Evento') return 'bg-purple-100 text-purple-700';
+            return 'bg-blue-100 text-blue-700';
+        }
+
+        // Eventos de Formulário
+        document.getElementById('form-config').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = "Salvando...";
+            
+            try {
+                // Merge true para criar se não existir
+                await setDoc(configRef, {
+                    title: document.getElementById('input-site-title').value,
+                    desc: document.getElementById('input-site-desc').value
+                }, { merge: true });
+                
+                btn.classList.add('bg-green-600');
+                btn.innerText = "Salvo!";
+                setTimeout(() => {
+                    btn.classList.remove('bg-green-600');
+                    btn.innerText = originalText;
+                }, 2000);
+            } catch(err) { alert("Erro ao salvar config: " + err.message); btn.innerText = originalText; }
+        });
+
+        document.getElementById('form-news').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const txt = btn.querySelector('.btn-text');
+            const original = txt.innerText;
+            
+            txt.innerText = "Enviando...";
+            btn.disabled = true;
+
+            try {
+                await addDoc(newsRef, {
+                    title: document.getElementById('news-title').value,
+                    tag: document.getElementById('news-tag').value,
+                    date: document.getElementById('news-date').value,
+                    content: document.getElementById('news-content').value,
+                    timestamp: serverTimestamp()
+                });
+                e.target.reset();
+                document.getElementById('news-date').valueAsDate = new Date();
+                alert("Notícia publicada com sucesso!");
+            } catch(err) {
+                console.error(err);
+                alert("Erro ao publicar: " + err.message);
+            } finally {
+                txt.innerText = original;
+                btn.disabled = false;
+            }
+        });
+
+        // Set Data Hoje
+        document.getElementById('news-date').valueAsDate = new Date();
+    </script>
+</body>
+</html>
